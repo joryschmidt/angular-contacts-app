@@ -18,7 +18,23 @@ angular.module('myContacts.contacts', ['ngRoute', 'firebase'])
   $scope.showAddForm = function(){
     $scope.addFormShow = true;
   }
+
   $scope.hideAddForm = function(){
     $scope.addFormShow = false;
+  }
+
+  $scope.addFormSubmit = function(){
+    console.log('adding contact...');
+    //assign values
+    if($scope.name){var name = $scope.name;} else {var name = null;}
+    if($scope.email){var email = $scope.email;} else {var email = null;}
+    if($scope.company){var company = $scope.company;} else {var company = null;}
+    if($scope.mobile_phone){var mobile_phone = $scope.mobile_phone;} else {var mobile_phone = null;}
+    if($scope.home_phone){var home_phone = $scope.home_phone;} else {var home_phone = null;}
+    if($scope.work_phone){var work_phone = $scope.work_phone;} else {var work_phone = null;}
+    if($scope.street_address){var street_address = $scope.street_address;} else {var street_address = null;}
+    if($scope.city){var city = $scope.city;} else {var city = null;}
+    if($scope.state){var state = $scope.state;} else {var state = null;}
+    if($scope.zipcode){var zipcode = $scope.zipcode;} else {var zipcode = null;}
   }
 }]);
