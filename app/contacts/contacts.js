@@ -66,9 +66,9 @@ angular.module('myContacts.contacts', ['ngRoute', 'firebase'])
       $scope.msg = "Contact added!";
     });
   }
-  
+
   function clearFields() {
-    console.log(Clearing all fields...);
+    console.log('Clearing all fields...');
 
     $scope.name = '';
     $scope.email = '';
