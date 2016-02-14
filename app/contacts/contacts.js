@@ -19,8 +19,9 @@ angular.module('myContacts.contacts', ['ngRoute', 'firebase'])
     $scope.addFormShow = true;
   }
 
-  $scope.hideAddForm = function(){
+  $scope.hide= function(){
     $scope.addFormShow = false;
+    $scope.contactShow = false;
   }
 
   $scope.addFormSubmit = function(){
@@ -67,6 +68,26 @@ angular.module('myContacts.contacts', ['ngRoute', 'firebase'])
     });
   }
 
+  $scope.editFormSubmit = function() {
+    console.log('update contact...');
+
+    //obtain contact id
+    var id = $scope.id;
+    //get record
+    var record = $scope.contact.$getRecord(id);
+    //assign values
+		record.name 						= $scope.name;
+		record.email 						= $scope.email;
+		record.company 						= $scope.company;
+		record.phones[0].work 				= $scope.work_phone;
+		record.phones[0].home 				= $scope.home_phone;
+		record.phones[0].mobile 			= $scope.mobile_phone;
+		record.address[0].street_address 	= $scope.street_address;
+		record.address[0].city 				= $scope.city;
+		record.address[0].state 			= $scope.state;
+		record.address[0].zipcode 			= $scope.zipcode;
+  }
+
   $scope.showContact = function(contact) {
     console.log(contact);
     $scope.name = contact.name;
@@ -79,7 +100,7 @@ angular.module('myContacts.contacts', ['ngRoute', 'firebase'])
     $scope.city = contact.address[0].city;
     $scope.state = contact.address[0].state;
     $scope.zipcode = contact.address[0].zipcode;
-    
+
     $scope.contactShow = true;
   }
 
