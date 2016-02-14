@@ -19,6 +19,22 @@ angular.module('myContacts.contacts', ['ngRoute', 'firebase'])
     $scope.addFormShow = true;
   }
 
+  $scope.showEditForm = function(contact) {
+    $scope.editFormShow = true;
+
+		$scope.id			    = contact.$id;
+		$scope.name 			= contact.name;
+		$scope.email 			= contact.email;
+		$scope.company 			= contact.company;
+		$scope.work_phone 		= contact.phones[0].work;
+		$scope.home_phone 		= contact.phones[0].home;
+		$scope.mobile_phone 	= contact.phones[0].mobile;
+		$scope.street_address 	= contact.address[0].street_address;
+		$scope.city 			= contact.address[0].city;
+		$scope.state 			= contact.address[0].state;
+		$scope.zipcode 			= contact.address[0].zipcode;
+  }
+
   $scope.hide= function(){
     $scope.addFormShow = false;
     $scope.contactShow = false;
@@ -74,7 +90,7 @@ angular.module('myContacts.contacts', ['ngRoute', 'firebase'])
     //obtain contact id
     var id = $scope.id;
     //get record
-    var record = $scope.contact.$getRecord(id);
+    var record = $scope.contacts.$getRecord(id);
     //assign values
 		record.name 						= $scope.name;
 		record.email 						= $scope.email;
@@ -86,6 +102,16 @@ angular.module('myContacts.contacts', ['ngRoute', 'firebase'])
 		record.address[0].city 				= $scope.city;
 		record.address[0].state 			= $scope.state;
 		record.address[0].zipcode 			= $scope.zipcode;
+
+    // Save Contact
+    $scope.contacts.$save(record).then(function(ref){
+      console.log(ref.key);
+    });
+
+    clearFields();
+
+    $scope.editFormShow = false;
+    $scope.msg = "Contact Updated!";
   }
 
   $scope.showContact = function(contact) {
@@ -102,6 +128,12 @@ angular.module('myContacts.contacts', ['ngRoute', 'firebase'])
     $scope.zipcode = contact.address[0].zipcode;
 
     $scope.contactShow = true;
+  }
+
+  //Delete contact
+  $scope.deleteContact = function(contact){
+    $scope.contacts.$remove(contact);
+    $scope.msg = "Contact Removed.";
   }
 
   function clearFields() {
