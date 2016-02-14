@@ -17,6 +17,8 @@ angular.module('myContacts.contacts', ['ngRoute', 'firebase'])
 
   $scope.showAddForm = function(){
     $scope.addFormShow = true;
-    
+  }
+  $scope.hideAddForm = function(){
+    $scope.addFormShow = false;
   }
 }]);
