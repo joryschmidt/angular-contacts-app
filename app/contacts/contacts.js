@@ -24,7 +24,6 @@ angular.module('myContacts.contacts', ['ngRoute', 'firebase'])
   }
 
   $scope.addFormSubmit = function(){
-    console.log('adding contact...');
     //assign values
     if($scope.name){var name = $scope.name;} else {var name = null;}
     if($scope.email){var email = $scope.email;} else {var email = null;}
@@ -36,5 +35,50 @@ angular.module('myContacts.contacts', ['ngRoute', 'firebase'])
     if($scope.city){var city = $scope.city;} else {var city = null;}
     if($scope.state){var state = $scope.state;} else {var state = null;}
     if($scope.zipcode){var zipcode = $scope.zipcode;} else {var zipcode = null;}
+
+    //build object
+    $scope.contacts.$add({
+      name: name,
+      email: email,
+      company: company,
+      phones: [
+        {
+          mobile: mobile_phone,
+          home: home_phone,
+          work: work_phone
+        }
+      ],
+      address: [
+        {
+          street_address: street_address,
+          city: city,
+          state: state,
+          zipcode: zipcode
+        }
+      ]
+    }).then(function(ref){
+      var id = ref.key();
+      console.log('Added contact with ID: ' + id);
+      //clear the form
+      clearFields();
+      $scope.addFormShow = false;
+
+      $scope.msg = "Contact added!";
+    });
+  }
+  
+  function clearFields() {
+    console.log(Clearing all fields...);
+
+    $scope.name = '';
+    $scope.email = '';
+    $scope.company = '';
+    $scope.mobile_phone = '';
+    $scope.home_phone = '';
+    $scope.work_phone = '';
+    $scope.street_address = '';
+    $scope.city = '';
+    $scope.state = '';
+    $scope.zipcode = '';
   }
 }]);
