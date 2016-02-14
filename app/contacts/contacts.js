@@ -10,5 +10,13 @@ angular.module('myContacts.contacts', ['ngRoute', 'firebase'])
 }])
 
 .controller('ContactsController', ['$scope', '$firebaseArray', function($scope, $firebaseArray) {
-  console.log($scope);
+  var ref = new Firebase('https://mycontactsforangjsprojects.firebaseio.com/contacts')
+
+  $scope.contacts = $firebaseArray(ref);
+  // console.log($scope.contacts);
+
+  $scope.showAddForm = function(){
+    $scope.addFormShow = true;
+    
+  }
 }]);
